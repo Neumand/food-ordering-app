@@ -35,8 +35,6 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
-console.log(knex);
-
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
