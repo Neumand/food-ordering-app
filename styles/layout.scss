@@ -7,6 +7,18 @@ body {
 }
 
 .logo {
-  width: 8em;
-  height: 8em;
+  width: 6em;
+  height: 6em;
+}
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.home-image {
+  max-width: 40%;
+  max-height: 40%;
+  float: left;
 }
