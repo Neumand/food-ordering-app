@@ -1,5 +1,7 @@
-exports.seed = function(knex, Promise) {
+exports.seed = function (knex, Promise) {
+  console.log("Seeding users")
   return Promise.all([
+    knex('orders').del(),
     knex("users").del(),
     knex.raw("ALTER SEQUENCE users_id_seq RESTART WITH 1"),
     knex("users").insert({
