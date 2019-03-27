@@ -14,6 +14,8 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
+
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
@@ -35,8 +37,6 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
-console.log(knex);
-
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
@@ -44,6 +44,15 @@ app.use("/api/users", usersRoutes(knex));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+// Twilio - Respond to incoming text message
+app.post('/sms', (req, res) => {
+  const twiml = new MessagingResponse();
+
+  twiml.message('Testing inbound messages...');
+  res.writeHead(200, {'Content-Type': 'text/xml'});
+  res.end(twiml.toString());
+})
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
