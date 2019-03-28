@@ -7,33 +7,38 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="public/styles/orders.css"/>
+
 </head>
   <body>
   <div class="container-fluid">
-  <h1>Hello World!</h1>
-  <p>Resize the browser window to see the effect.</p>
-  <p>The columns will automatically stack on top of each other when the screen is less than 768px wide.</p>
-  <div class="row">
-    <div class="col-sm-4" style="background-color:lavender;">.col-sm-4</div>
-    <div class="col-sm-4" style="background-color:lavenderblush;">.col-sm-4</div>
-    <div class="col-sm-4" style="background-color:lavender;">.col-sm-4</div>
+    <h1>Hello World!</h1>
+    <p>Resize the browser window to see the effect.</p>
+    <p>The columns will automatically stack on top of each other when the screen is less than 768px wide.</p>
+
+    <%dishes.forEach(dish => {%>
+    <div class="row">
+    <div class="col-sm-4" style="background-color:lavender;">
+      <p><%=dish.image%></p>
+    </div>
+
+    <div class="col-sm-4" style="background-color:lavenderblush;">
+      <p><%=dish.name%></p>
+    </div>
+
+    <div class="col-sm-4" style="background-color:lavender;">
+      <p><%=dish.description%></p>
+    </div>
+    <%})%>
   </div>
-</div>
+
+  </body>
 
 
 
 
 
-<!--
-<p><%dishes.forEach(dish => {%>
-<div class="column">
-  <img src="/images-Mar/burger1.jpg" alt="burger image 1">
-  <p><%= dish.name%></p>
-  <p><%= dish.description%></p>
-</div>
-<%})%>
-</p>
--->
+
 </div>
 </body>
 </html>
