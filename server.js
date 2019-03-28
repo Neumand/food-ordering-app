@@ -55,7 +55,7 @@ app.get("/orders", (req, res) => {
   knex('orders').asCallback((err, rows) => {
     if (err) console.error(err)
 
-    res.render('insert EJS file ', { orders: rows })
+    res.render('menu', { orders: rows })
   })
 });
 
