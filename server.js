@@ -45,7 +45,16 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-//Order Page:
+//Menu Page:
+app.get('/dishes', (req, res) => {
+  knex('dishes').asCallback((err, rows) => {
+    if (err) console.error(err)
+
+    res.render('dishes', { orders: rows })
+  })
+})
+
+//Your Order page:
 app.get('/orders', (req, res) => {
   knex('orders').asCallback((err, rows) => {
     if (err) console.error(err)
@@ -53,6 +62,7 @@ app.get('/orders', (req, res) => {
     res.render('orders', { orders: rows })
   })
 })
+
 
 // Twilio - Respond to incoming text message
 app.post('/sms', (req, res) => {
