@@ -47,7 +47,7 @@ app.get("/dishes", (req, res) => {
   knex('dishes').asCallback((err, rows) => {
     if (err) console.error(err)
 
-    res.render('test', { dishes: rows })
+    res.render('menu', { dishes: rows })
   })
 });
 // Orders Page:
