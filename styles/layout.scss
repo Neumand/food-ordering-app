@@ -1,7 +1,39 @@
 body {
   background-color: #EEE;
+  font-size: 2vw;
 
   h1 {
     color: #244751;
   }
+}
+
+.logo {
+  width: 6em;
+  height: 6em;
+}
+
+.nav-bar {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.home-image {
+  max-width: 60%;
+  max-height: 60%;
+  float: left;
+  padding: 1em;
+}
+
+.home-content {
+  margin-right: 1em;
+  margin-left: 1em;
+}
+
+.button-prompt {
+  margin: 2em;
 }
