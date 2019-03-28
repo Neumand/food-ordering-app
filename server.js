@@ -81,13 +81,16 @@ app.get("/orders", (req, res) => {
 
 // Will add dish to customer's order basket / cart
 app.post("/dishes", (req, res) => {
-  knex("order_dishes")
-    .insert("id")
-    .where()
-    .asCallback((err, result) => {
-      if (err) console.log(error);
-    });
-});
+  const dishId = req.body.id;
+  const dishName = req.body.name;
+  const dishPrice = req.body.price;
+})
+
+// Handle request to submit order and send SMS confirmation.
+app.post('/orders', (req, res) => {
+  const { firstName, lastName, address, streetNumber, city, province, postalCode } = req.body;
+  console.log(req.body);
+})
 
 // Twilio - Respond to incoming text message
 app.post("/sms", (req, res) => {
