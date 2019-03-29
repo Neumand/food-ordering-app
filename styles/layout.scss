@@ -1,7 +1,65 @@
 body {
   background-color: #EEE;
+  font-size: 1em;
 
   h1 {
     color: #244751;
   }
+}
+
+.logo {
+  width: 5em;
+  height: 5em;
+}
+
+// .nav-bar {
+//   display: flex;
+//   width: 100%;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   align-items: center;
+//   margin-left: 1em;
+//   margin-right: 1em;
+// }
+
+// header {
+  // color: white;
+// }
+
+.home-image {
+  max-width: 60%;
+  max-height: 60%;
+  float: left;
+  padding: 1em;
+}
+
+.home-content {
+  margin-top: 1em;
+  margin-right: 1em;
+  margin-left: 1em;
+}
+
+.button-prompt {
+  margin: 2em;
+}
+
+
+.menu-image{
+  width:100%;
+  height:auto;
+  margin: 10px 10px 3px 10px;
+}
+
+
+#price-beside-button {
+  bottom: 0;
+  position: absolute;
+  flex: space-between;
+  display: flex;
+  justify-content: space-between
+}
+
+.imageTextBox {
+margin: 1px;
+
 }
