@@ -22,10 +22,9 @@ $(() => {
       url: '/orders',
       data: formData,
     })
-    .done((result) => {
-      console.log(result);
-      $('.order-name').text(formData.name);
-      $('.order-confirmation-text').text(`Thank you for ordering with DM Burgers! You will be receiving an SMS shortly confirming your order.`);
+    .then((res) => {
+      $('.order-name').text(res);
+      $('.modal-body').text(`Thank you for ordering with DM Burgers! You will be receiving an SMS shortly confirming your order.`);
     });
   });
 });
