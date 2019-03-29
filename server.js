@@ -89,9 +89,8 @@ app.get("/orders", (req, res) => {
   })
 });
 
-<<<<<<< HEAD
 // Handle request to add dish to the user's cart.
-app.post("/cart/:userId", (req, res) => {
+app.post("/cart", (req, res) => {
   const userId = req.params.userId;
   const { dishId, qty } = req.body;
   knex("cart").insert({
@@ -106,26 +105,14 @@ app.get("/cart", (req, res) => {
   // Replace with cookie-session ID
   const userId = req.params.userId;
   knex("dishes")
-    .join("cart", "dishes.id", "=", "cart.dishes_id")
+    .join("cart", "dishes.id", "=", "cart.dish_id")
     .select("*")
-    .where("user_id", userId)
+    .where("user_id", 2)
     .asCallback((err, result) => {
-      console.log(result);
-      let templateVars = { cart: result };
+      let templateVars = result;
+      console.log(templateVars);
       res.render("orders", templateVars);
     });
-=======
-
-
-
-
-
-// Will add dish to customer's order basket / cart
-app.post("/dishes", (req, res) => {
-  const dishId = req.body.id;
-  const dishName = req.body.name;
-  const dishPrice = req.body.price;
->>>>>>> 8e0598d432701d212a843578e06ec934c3b2c9d2
 });
 
 // Handle request to submit order and send SMS confirmation.
