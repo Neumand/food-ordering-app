@@ -59,28 +59,40 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
-// Home page
+// Home page:
 app.get("/", (req, res) => {
   res.render("index");
 });
-
-//Menu Page:
+// Menu Page:
 app.get("/dishes", (req, res) => {
-  knex("dishes").asCallback((err, rows) => {
-    if (err) console.error(err);
+  knex('dishes').asCallback((err, rows) => {
+    if (err) console.error(err)
 
-    res.render("dishes", { orders: rows });
-  });
+    res.render('menu', { dishes: rows })
+  })
 });
 
-//Your Order page:
+
+//  app.post("/dishes", (req,res) => {
+
+
+
+//  })
+
+
+// Orders Page:
 app.get("/orders", (req, res) => {
-  knex("orders").asCallback((err, rows) => {
-    if (err) console.error(err);
+  knex('orders').asCallback((err, rows) => {
+    if (err) console.error(err)
 
-    res.render("orders", { orders: rows });
-  });
+    res.render('menu', { orders: rows })
+  })
 });
+
+
+
+
+
 
 // Will add dish to customer's order basket / cart
 app.post("/dishes", (req, res) => {
