@@ -16,7 +16,7 @@ const knexLogger = require("knex-logger");
 
 // Setup for Twilio.
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = prcess.env.TWILIO_AUTH_TOKEN;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilio = require("twilio")(accountSid, authToken);
 
 // Seperated Routes for each Resource
