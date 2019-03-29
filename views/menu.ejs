@@ -2,58 +2,54 @@
 <br>
 <br>
 
+
+<p class="text-center m-1">Burgers</p>
+<p class="text-center">100% all-natural Angus beef. No hormones and no antibiotics ever. Served on a non-GMO potato bun.</p>
 <div class="container m-2 mx-auto">
-    <div class="row w-150">
-      <%dishes.forEach(dish => {%>
-        <div class="col-sm-3 m-1 rounded" style="border: solid 1px grey" >
-        <div class="imageTextBox">
-          <img class="menu-image rounded " src="<%=dish.image%>">
-          <!--<div style="background-image:url(<%=dish.image%>)"></div> TEST THIS AFTER-->
-          <span><%=dish.name%></span>
-          <div class="font-weight-lighter" ><%=dish.description%></div>
-          <form>
-            <div >$<%=dish.price%></div>
-            <!-- Button trigger modal -->
-              <button type="button" class="btn btn-dark col-xs-5" data-toggle="modal" data-target="#exampleModal">
-                Select
-              </button>
-            <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    ...
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
-                </div>
-              </div>
-              </div>
-            <!--<div><button type="submit" class="btn btn-dark col-xs-5" >Select</button></div>-->
-          </form>
+  <div class="row w-100">
+    <%dishes.forEach(dish => {%>
+
+    <!-- Modal -->
+    <div class="modal fade" id="dish-<%=dish.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle"><%=dish.name%></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body"><%=dish.description%></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-dark col-xs-5">Add to Cart</button>
+            </div>
+
+            <!--Below three lines are plus/minus button-->
+          <div class="quantity buttons_added">
+            <input type="button" value="-" class="minus">
+            <input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="">
+            <input type="button" value="+" class="plus">
           </div>
         </div>
-      <%})%>
+      </div>
     </div>
+  </div>
+
+
+      <div class="col-md-3 m-1 rounded text-center" style="border: solid 1px grey" >
+        <div class="imageTextBox">
+          <!-- <img class="menu-image img-thumbnail rounded " src="<%=dish.image%>"> -->
+          <div class="burger_header" style="background-image:url(<%=dish.image%>)"></div>
+          <span><%=dish.name%></span>
+          <div class="font-weight-lighter" ><%=dish.description%></div>
+          <div>$<%=dish.price%></div>
+          <div><button type="button" class="btn btn-dark col-xs-5" data-toggle="modal" data-target="#dish-<%=dish.id%>">Select</button></div>
+        </div>
+      </div>
+    <%})%>
+  </div>
 </div>
-
- <!--
-
-
- -->
-
-
-
-
-
 
 </body>
 </html>
