@@ -15,8 +15,8 @@ const morgan = require("morgan");
 const knexLogger = require("knex-logger");
 
 // Setup for Twilio.
-const accountSid = "AC880793fadb4fc7beb1163a9ad6f9ae2b";
-const authToken = "6521571017383ce3ac4d6b0cbb56a4e5";
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilio = require("twilio")(accountSid, authToken);
 
 // Seperated Routes for each Resource
