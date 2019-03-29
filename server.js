@@ -91,9 +91,6 @@ app.get("/orders", (req, res) => {
 
 
 
-
-
-
 // Will add dish to customer's order basket / cart
 app.post("/dishes", (req, res) => {
   const dishId = req.body.id;
