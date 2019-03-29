@@ -73,12 +73,6 @@ app.get("/dishes", (req, res) => {
 });
 
 
-//  app.post("/dishes", (req,res) => {
-
-
-
-//  })
-
 
 // Orders Page:
 app.get("/orders", (req, res) => {
@@ -89,7 +83,11 @@ app.get("/orders", (req, res) => {
   })
 });
 
-
+//login
+app.get("/login/:id", (req,res) => {
+req.session.user_id = req.params.id;
+  res.redirect("/")
+});
 
 
 
