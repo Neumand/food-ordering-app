@@ -91,6 +91,7 @@ app.get("/orders", (req, res) => {
 
 // Handle request to add dish to the user's cart.
 app.post("/cart", (req, res) => {
+  console.log('hello')
   const userId = req.params.userId;
   const { dishId, qty } = req.body;
   knex("cart").insert({
