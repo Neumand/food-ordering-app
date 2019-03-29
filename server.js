@@ -86,6 +86,7 @@ app.get("/orders", (req, res) => {
 //login
 app.get("/login/:id", (req,res) => {
 req.session.user_id = req.params.id;
+//install cookies sessions
   res.redirect("/")
 });
 
