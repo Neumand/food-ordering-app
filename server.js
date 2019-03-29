@@ -73,12 +73,6 @@ app.get("/dishes", (req, res) => {
 });
 
 
-//  app.post("/dishes", (req,res) => {
-
-
-
-//  })
-
 
 // Orders Page:
 app.get("/orders", (req, res) => {
@@ -88,6 +82,7 @@ app.get("/orders", (req, res) => {
     res.render('menu', { orders: rows })
   })
 });
+
 
 // Handle request to add dish to the user's cart.
 app.post("/cart", (req, res) => {
@@ -99,6 +94,14 @@ app.post("/cart", (req, res) => {
     dish_id: dishId,
     quantity: qty
   });
+});
+
+
+//login
+app.get("/login/:id", (req,res) => {
+req.session.user_id = req.params.id;
+//install cookies sessions
+  res.redirect("/")
 });
 
 
