@@ -2,7 +2,7 @@ exports.seed = function (knex, Promise) {
   console.log("Seeding cart")
   return Promise.all([
     knex('cart').del(),
-    knex.raw("ALTER SEQUENCE restaurant_id_seq RESTART WITH 1"),
+    knex.raw("ALTER SEQUENCE cart_id_seq RESTART WITH 1"),
     knex('cart').insert({
       user_id: 1,
       dish_id: 4,
