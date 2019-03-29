@@ -14,7 +14,10 @@ const knex = require("knex")(knexConfig[ENV]);
 const morgan = require("morgan");
 const knexLogger = require("knex-logger");
 
-const MessagingResponse = require("twilio").twiml.MessagingResponse;
+// Setup for Twilio.
+const accountSid = "AC880793fadb4fc7beb1163a9ad6f9ae2b";
+const authToken = "6521571017383ce3ac4d6b0cbb56a4e5";
+const twilio = require("twilio")(accountSid, authToken);
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -84,21 +87,41 @@ app.post("/dishes", (req, res) => {
   const dishId = req.body.id;
   const dishName = req.body.name;
   const dishPrice = req.body.price;
-})
+});
 
 // Handle request to submit order and send SMS confirmation.
-app.post('/orders', (req, res) => {
-  const { firstName, lastName, address, streetNumber, city, province, postalCode } = req.body;
-  console.log(req.body);
-})
+app.post("/orders", (req, res) => {
+  const {
+    firstName,
+    lastName,
+    streetNumber,
+    streetName,
+    city,
+    province,
+    postalCode,
+    phoneNumber
+  } = req.body;
 
-// Twilio - Respond to incoming text message
-app.post("/sms", (req, res) => {
-  const twiml = new MessagingResponse();
-
-  twiml.message("Testing inbound messages...");
-  res.writeHead(200, { "Content-Type": "text/xml" });
-  res.end(twiml.toString());
+  return Promise.all([
+    knex("users").insert({
+      first_name: firstName,
+      last_name: lastName,
+      street_number: streetNumber,
+      street: streetName,
+      city: city,
+      province: province,
+      postal_code: postalCode,
+      phone_number: phoneNumber
+    }),
+    twilio.messages.create({
+      body:
+        "Thank you! Your order is being processed and your delivery will be completed shortly.",
+      from: "+14388060140",
+      to: "+15149289639"
+    })
+  ]).then(() => {
+    res.send(firstName);
+  });
 });
 
 app.listen(PORT, () => {
