@@ -94,17 +94,18 @@ app.post("/cart/:userId", (req, res) => {
 });
 
 // View contents of user's cart.
-app.get('/cart', (req, res) => {
+app.get("/cart", (req, res) => {
+  // Replace with cookie-session ID
   const userId = req.params.userId;
-  knex('dishes')
-    .join('cart', 'dishes.id', '=', 'cart.dishes_id')
-    .select('*')
-    .where('user_id', userId)
+  knex("dishes")
+    .join("cart", "dishes.id", "=", "cart.dishes_id")
+    .select("*")
+    .where("user_id", userId)
     .asCallback((err, result) => {
       console.log(result);
-      let templateVars = {cart:result}  
-      res.render('orders', templateVars);
-    })
+      let templateVars = { cart: result };
+      res.render("orders", templateVars);
+    });
 });
 
 // Handle request to submit order and send SMS confirmation.
