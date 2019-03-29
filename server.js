@@ -59,29 +59,37 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
-// Home page
+// Home page:
 app.get("/", (req, res) => {
   res.render("index");
 });
-
-//Menu Page:
+// Menu Page:
 app.get("/dishes", (req, res) => {
-  knex("dishes").asCallback((err, rows) => {
-    if (err) console.error(err);
+  knex('dishes').asCallback((err, rows) => {
+    if (err) console.error(err)
 
-    res.render("dishes", { orders: rows });
-  });
+    res.render('menu', { dishes: rows })
+  })
 });
 
-//Your Order page:
+
+//  app.post("/dishes", (req,res) => {
+
+
+
+//  })
+
+
+// Orders Page:
 app.get("/orders", (req, res) => {
-  knex("orders").asCallback((err, rows) => {
-    if (err) console.error(err);
+  knex('orders').asCallback((err, rows) => {
+    if (err) console.error(err)
 
-    res.render("orders", { orders: rows });
-  });
+    res.render('menu', { orders: rows })
+  })
 });
 
+<<<<<<< HEAD
 // Handle request to add dish to the user's cart.
 app.post("/cart/:userId", (req, res) => {
   const userId = req.params.userId;
@@ -106,6 +114,18 @@ app.get("/cart", (req, res) => {
       let templateVars = { cart: result };
       res.render("orders", templateVars);
     });
+=======
+
+
+
+
+
+// Will add dish to customer's order basket / cart
+app.post("/dishes", (req, res) => {
+  const dishId = req.body.id;
+  const dishName = req.body.name;
+  const dishPrice = req.body.price;
+>>>>>>> 8e0598d432701d212a843578e06ec934c3b2c9d2
 });
 
 // Handle request to submit order and send SMS confirmation.

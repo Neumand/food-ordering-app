@@ -43,6 +43,29 @@ body {
   margin: 2em;
 }
 
+
+.menu-image {
+  width:100%;
+  height:auto;
+  margin: 10px 10px 3px 10px;
+}
+
+
+#price-beside-button {
+  bottom: 0;
+  position: absolute;
+  flex: space-between;
+  display: flex;
+  justify-content: space-between
+}
+
+.imageTextBox {
+margin: 1px;
+display:flex;
+flex-direction:column;
+justify-content: space-between;
+}
+
 .order-form {
   padding: 1em;
   font-size: 0.8em;
@@ -54,6 +77,12 @@ body {
   margin-top: 3em;
 }
 
+.burger_header {
+  width:100%;
+  height:200px;
+  background-size:cover;
+  background-position:center center;
+}
 .badge-secondary {
   color: #fff;
   background-color: #6c757d;
@@ -79,3 +108,5 @@ body {
 .material-icons {
   color: white;
 }
+
+

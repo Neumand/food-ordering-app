@@ -20,5 +20,6 @@ exports.seed = function (knex, Promise) {
       ready_time: 15,
       taxes: 3.40
     }),
+
   ])
 };
