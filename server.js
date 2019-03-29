@@ -89,17 +89,36 @@ app.get("/orders", (req, res) => {
   })
 });
 
+// Handle request to add dish to the user's cart.
+app.post("/cart", (req, res) => {
+  const userId = req.params.userId;
+  const { dishId, qty } = req.body;
+  knex("cart").insert({
+    user_id: userId,
+    dish_id: dishId,
+    quantity: qty
+  });
+});
 
 
-// Will add dish to customer's order basket / cart
-app.post("/dishes", (req, res) => {
-  const dishId = req.body.id;
-  const dishName = req.body.name;
-  const dishPrice = req.body.price;
+// View contents of user's cart.
+app.get("/cart", (req, res) => {
+  // Replace with cookie-session ID
+  const userId = req.params.userId;
+  knex("dishes")
+    .join("cart", "dishes.id", "=", "cart.dish_id")
+    .select("*")
+    .where("user_id", 2)
+    .asCallback((err, result) => {
+      let templateVars = result;
+      console.log(templateVars);
+      res.render("orders", templateVars);
+    });
 });
 
 // Handle request to submit order and send SMS confirmation.
-app.post("/orders", (req, res) => {
+app.post("/orders/:userId", (req, res) => {
+  const userId = req.params.userId;
   const {
     firstName,
     lastName,
@@ -112,22 +131,12 @@ app.post("/orders", (req, res) => {
   } = req.body;
 
   return Promise.all([
-    knex("users").insert({
-      first_name: firstName,
-      last_name: lastName,
-      street_number: streetNumber,
-      street: streetName,
-      city: city,
-      province: province,
-      postal_code: postalCode,
-      phone_number: phoneNumber
-    }),
     twilio.messages.create({
-      body:
-        "Thank you! Your order is being processed and your delivery will be completed shortly.",
+      body: `Thank you, ${firstName}! Your order is being processed and your delivery will be completed shortly.`,
       from: "+14388060140",
       to: "+15149289639"
-    })
+    }),
+    knex("cart").del()
   ]).then(() => {
     res.send(firstName);
   });
