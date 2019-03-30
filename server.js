@@ -117,7 +117,7 @@ app.get("/cart", (req, res) => {
 });
 
 // Handle request to submit order and send SMS confirmation.
-app.post("/orders/", (req, res) => {
+app.post("/orders", (req, res) => {
   const userId = req.session.user_id;
   const {
     firstName,
