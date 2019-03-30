@@ -1,76 +1,74 @@
 <%include partials/_header%>
-<br>
-<br>
+
+<body>
+  <br>
+  <br>
 
 
 
-<p class="text-center m-3">Burgers</p>
-<p class="text-center">100% all-natural Angus beef. No hormones and no antibiotics ever. Served on a non-GMO potato bun.</p>
-<div class="container m-2 mx-auto">
-  <div class="row w-100 justify-content-center">
-    <%dishes.forEach(dish => {%>
+  <p class="text-center m-3">Burgers</p>
+  <p class="text-center">100% all-natural Angus beef. No hormones and no antibiotics ever. Served on a non-GMO potato bun.</p>
+  <div class="container m-2 mx-auto">
+    <div class="row w-100 justify-content-center">
+      <%dishes.forEach(dish => {%>
 
-    <!-- Modal -->
-    <div class="modal fade" id="dish-<%=dish.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle"><%=dish.name%></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+      <!-- Modal -->
+      <div class="modal fade" id="dish-<%=dish.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle"><%=dish.name%></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <div class="modal-body"><%=dish.description%></div>
+          <div class="modal-body">$<%=dish.price%></div>
+          <div class="modal-footer">
+            <form action= "/cart" method="POST" class="add-to-cart-form">
+              <input type="number" class="quantity-button"  name="qty" min="1" max="20" value="1">
+              <input type="hidden" name="dishId" value="<%=dish.id%>">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-dark col-xs-5" data-toggle="modal" data-target="#dish-<%=dish.id%>">Add to Cart</button>
+            </form>
           </div>
-        <div class="modal-body"><%=dish.description%></div>
-        <div class="modal-body">$<%=dish.price%></div>
-        <div class="modal-footer">
-          <form action= "/cart" method="POST" class="add-to-cart-form">
-            <input type="number" class="quantity-button"  name="qty" min="1" max="20" value="1">
-            <input type="hidden" name="dishId" value="<%=dish.id%>">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-dark col-xs-5" data-toggle="modal" data-target="#dish-<%=dish.id%>">Add to Cart</button>
-          </form>
         </div>
       </div>
+    </div>
+
+
+
+
+        <div class="col-md-3 mx-3 my-4 rounded text-center min-w-260" style="border: solid 1px grey" >
+          <div class="imageTextBox">
+            <!-- <img class="menu-image img-thumbnail rounded " src="<%=dish.image%>"> -->
+            <div class="burger_header img-thumbnail m-1" style="background-image:url(<%=dish.image%>)"></div>
+            <span><%=dish.name%></span>
+            <div class="font-weight-lighter" ><%=dish.description%></div>
+            <div>$<%=dish.price%></div>
+            <div><button type="button" class="btn btn-dark col-xs-5" data-toggle="modal" data-target="#dish-<%=dish.id%>">Select</button></div>
+          </div>
+        </div>
+      <%})%>
     </div>
   </div>
 
 
 
-
-      <div class="col-md-3 mx-3 my-4 rounded text-center min-w-260" style="border: solid 1px grey" >
-        <div class="imageTextBox">
-          <!-- <img class="menu-image img-thumbnail rounded " src="<%=dish.image%>"> -->
-          <div class="burger_header img-thumbnail m-1" style="background-image:url(<%=dish.image%>)"></div>
-          <span><%=dish.name%></span>
-          <div class="font-weight-lighter" ><%=dish.description%></div>
-          <div>$<%=dish.price%></div>
-          <div><button type="button" class="btn btn-dark col-xs-5" data-toggle="modal" data-target="#dish-<%=dish.id%>">Select</button></div>
-        </div>
-      </div>
-    <%})%>
-  </div>
-</div>
-
-<!-- TOAST OPTION this will advise the customer that their items  have been added to cart -->
-
 <!-- Flexbox container for aligning the toasts -->
-<div id="submit-toast" aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
-
-  <!-- Then put toasts within -->
-  <div  class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast" id="submit-toast" role="alert" style="position: fixed;top: 78px;left: 100px;" aria-live="assertive" aria-atomic="true" data-delay="2000">
     <div class="toast-header">
-      <img src="..." class="rounded mr-2" alt="...">
-      <strong class="mr-auto">Bootstrap</strong>
-      <small>11 mins ago</small>
+      <img src="https://findicons.com/files/icons/1964/colorcons_green/128/checkmark.png" class="rounded mr-2" alt="fast food Icon" width="30" height="30">
+      <strong class="mr-auto">Confirmed!</strong>
+
       <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="toast-body">
-      Hello, world! This is a toast message.
+    Item has been successfully added to cart.
     </div>
   </div>
-</div>
 
 </body>
 </html>
