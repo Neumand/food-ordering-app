@@ -45,14 +45,21 @@ $(() => {
       url: '/cart',
       data: formData,
     }).done((result) => {
+      $('#submit-toast').toast('show')
       console.log("dish has been added to cart")
     }).fail((err) => {
       console.log(err)
     })
+
+
+
   })
-  $('.carousel').carousel({
-    interval: 8000
+
+  $('.carousel-slide').carousel({
+    interval: 5000
   })
+
+
 
 });
 
