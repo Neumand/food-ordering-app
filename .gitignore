@@ -4,4 +4,5 @@ public/styles
 *.log
 *.sqlite3
 *.jpg
+*.png
 
