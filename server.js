@@ -98,7 +98,7 @@ app.get("/cart", (req, res) => {
   knex("dishes")
     .join("cart", "dishes.id", "=", "cart.dish_id")
     .select("*")
-    .where("user_id", 1)
+    .where("user_id", 3)
     .asCallback((err, result) => {
       let templateVars = { cart: result };
       console.log(templateVars);
