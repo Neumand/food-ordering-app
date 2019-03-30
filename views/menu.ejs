@@ -6,7 +6,7 @@
 <p class="text-center m-3">Burgers</p>
 <p class="text-center">100% all-natural Angus beef. No hormones and no antibiotics ever. Served on a non-GMO potato bun.</p>
 <div class="container m-2 mx-auto">
-  <div class="row w-100">
+  <div class="row w-100 justify-content-center">
     <%dishes.forEach(dish => {%>
 
     <!-- Modal -->
@@ -22,11 +22,11 @@
         <div class="modal-body"><%=dish.description%></div>
         <div class="modal-body">$<%=dish.price%></div>
         <div class="modal-footer">
-          <form action= "/cart" method="POST">
-            <input type="number" class="quantity-button"  name="qty" min="0" max="20">
+          <form action= "/cart" method="POST" class="add-to-cart-form">
+            <input type="number" class="quantity-button"  name="qty" min="1" max="20" value="1">
             <input type="hidden" name="dishId" value="<%=dish.id%>">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-dark col-xs-5">Add to Cart</button>
+            <button type="submit" class="btn btn-dark col-xs-5" data-toggle="modal" data-target="#dish-<%=dish.id%>">Add to Cart</button>
           </form>
         </div>
       </div>
@@ -34,7 +34,7 @@
   </div>
 
 
-      <div class="col-md-3 m-1 rounded text-center" style="border: solid 1px grey" >
+      <div class="col-md-3 mx-3 my-4 rounded text-center min-w-260" style="border: solid 1px grey" >
         <div class="imageTextBox">
           <!-- <img class="menu-image img-thumbnail rounded " src="<%=dish.image%>"> -->
           <div class="burger_header img-thumbnail m-1" style="background-image:url(<%=dish.image%>)"></div>
