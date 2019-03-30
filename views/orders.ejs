@@ -74,6 +74,7 @@
 <!-- Order confirmation form -->
 <div class="row mt-2 rounded text-center justify-content-center">
 <h4>Please fill out the below form to complete your order.</h4>
+<div class="col-md-6 order-md-1 mb-4">
 </div>
 <form class="order-form" action="/orders" method="POST">
   <div class="form-row">
@@ -122,9 +123,10 @@
     <div class="form-group col-md-2">
       <label for="inputPostal">Postal Code</label>
       <input type="text" class="form-control" name="postalCode" id="inputPostal">
-    </div>
-  </div>
-  <button type="submit" class="btn btn-dark" data-toggle="modal" data-target="#submitModal">Submit Order</button>
+      </div>
+      </div>
+      <button type="submit" class="btn btn-dark" data-toggle="modal" data-target="#submitModal">Submit Order</button>
+      </div>
   </form>
 
   <!-- Shows the user an empty cart if they have not selected anything from the menu. -->
