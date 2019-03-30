@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 8080;
 const ENV = process.env.ENV || "development";
 const express = require("express");
 const bodyParser = require("body-parser");
-const cookieSession = require('cookie-session');
+const cookieSession = require("cookie-session");
 const sass = require("node-sass-middleware");
 const app = express();
 
@@ -43,10 +43,12 @@ app.use(
   })
 );
 
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1', 'key2']
-}));
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["key1", "key2"]
+  })
+);
 
 app.use(express.static("public"));
 
@@ -62,21 +64,21 @@ app.get("/", (req, res) => {
 // Menu Page:
 app.get("/dishes", (req, res) => {
   const userId = req.session.user_id;
-  knex('dishes').asCallback((err, rows) => {
-    if (err) console.error(err)
+  knex("dishes").asCallback((err, rows) => {
+    if (err) console.error(err);
 
-    res.render('menu', { dishes: rows })
-  })
+    res.render("menu", { dishes: rows });
+  });
 });
 
 // Orders Page:
 app.get("/orders", (req, res) => {
   const userId = req.session.user_id;
-  knex('orders').asCallback((err, rows) => {
-    if (err) console.error(err)
+  knex("orders").asCallback((err, rows) => {
+    if (err) console.error(err);
 
-    res.render('menu', { orders: rows })
-  })
+    res.render("menu", { orders: rows });
+  });
 });
 
 // Handle request to add dish to the user's cart.
@@ -124,7 +126,9 @@ app.post("/orders/:userId", (req, res) => {
       from: "+14388060140",
       to: "+15149289639"
     }),
-    knex("cart").del()
+    knex("cart")
+      .where("user_id", 1)
+      .del()
   ]).then(() => {
     res.send(firstName);
   });
