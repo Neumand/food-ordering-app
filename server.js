@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 8080;
 const ENV = process.env.ENV || "development";
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieSession = require('cookie-session');
 const sass = require("node-sass-middleware");
 const app = express();
 
@@ -42,17 +43,10 @@ app.use(
   })
 );
 
-// In-memory DB for the available dishes.
-
-const dishesDb = [
-  { id: 1, name: "Chop House Burger", price: 6.5, quantity: 0 },
-  { id: 2, name: "Wine Country Burger", price: 8.25, quantity: 0 },
-  { id: 3, name: "Chicken Fried Chicken Burger", price: 7.25, quantity: 0 },
-  { id: 4, name: "Buffalo Burger", price: 7.25, quantity: 0 },
-  { id: 5, name: "Ahi Tuna Burger", price: 9.25, quantity: 0 },
-  { id: 6, name: "The Green Burger", price: 7.25, quantity: 0 },
-  { id: 7, name: "El Luchador Burger", price: 8.25, quantity: 0 }
-];
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}));
 
 app.use(express.static("public"));
 
@@ -61,10 +55,13 @@ app.use("/api/users", usersRoutes(knex));
 
 // Home page:
 app.get("/", (req, res) => {
+  const userId = req.session.user_id;
   res.render("index");
 });
+
 // Menu Page:
 app.get("/dishes", (req, res) => {
+  const userId = req.session.user_id;
   knex('dishes').asCallback((err, rows) => {
     if (err) console.error(err)
 
@@ -72,16 +69,9 @@ app.get("/dishes", (req, res) => {
   })
 });
 
-
-//  app.post("/dishes", (req,res) => {
-
-
-
-//  })
-
-
 // Orders Page:
 app.get("/orders", (req, res) => {
+  const userId = req.session.user_id;
   knex('orders').asCallback((err, rows) => {
     if (err) console.error(err)
 
@@ -91,7 +81,7 @@ app.get("/orders", (req, res) => {
 
 // Handle request to add dish to the user's cart.
 app.post("/cart", (req, res) => {
-  const userId = req.params.userId;
+  const userId = req.session.user_id;
   const { dishId, qty } = req.body;
   knex("cart").insert({
     user_id: userId,
@@ -102,14 +92,13 @@ app.post("/cart", (req, res) => {
 
 // View contents of user's cart.
 app.get("/cart", (req, res) => {
-  // Replace with cookie-session ID
-  const userId = req.params.userId;
+  const userId = req.session.user_id;
   knex("dishes")
     .join("cart", "dishes.id", "=", "cart.dish_id")
     .select("*")
-    .where("user_id", 2)
+    .where("user_id", 1)
     .asCallback((err, result) => {
-      let templateVars = result;
+      let templateVars = { cart: result };
       console.log(templateVars);
       res.render("orders", templateVars);
     });
@@ -117,7 +106,7 @@ app.get("/cart", (req, res) => {
 
 // Handle request to submit order and send SMS confirmation.
 app.post("/orders/:userId", (req, res) => {
-  const userId = req.params.userId;
+  const userId = req.session.user_id;
   const {
     firstName,
     lastName,
