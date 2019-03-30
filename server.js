@@ -81,6 +81,7 @@ app.get("/orders", (req, res) => {
   });
 });
 
+
 // Handle request to add dish to the user's cart.
 app.post("/cart", (req, res) => {
   const userId = req.session.user_id;
@@ -89,8 +90,21 @@ app.post("/cart", (req, res) => {
     user_id: userId,
     dish_id: dishId,
     quantity: qty
+  }).then(result => {
+    res.sendStatus(200)  //advising us that that status is good and prevent it from hanging ("refresh")
   });
+
 });
+//put values in 93-95 then go into psql and see if they are loading in the cart table!
+
+
+//login
+app.get("/login/:id", (req,res) => {
+req.session.user_id = req.params.id;
+//install cookies sessions
+  res.redirect("/")
+});
+
 
 // View contents of user's cart.
 app.get("/cart", (req, res) => {
