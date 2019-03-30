@@ -86,15 +86,19 @@ app.get("/orders", (req, res) => {
 
 // Handle request to add dish to the user's cart.
 app.post("/cart", (req, res) => {
-  console.log('hello')
+  // console.log('hello')
   const userId = req.params.userId;
   const { dishId, qty } = req.body;
   knex("cart").insert({
     user_id: userId,
     dish_id: dishId,
     quantity: qty
+  }).then(result => {
+    res.sendStatus(200)  //advising us that that status is good and prevent it from hanging ("refresh")
   });
+
 });
+//put values in 93-95 then go into psql and see if they are loading in the cart table!
 
 
 //login
