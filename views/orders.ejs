@@ -30,28 +30,40 @@
 <div class="col-md-6 order-md-1 mb-4">
     <h1 class="d-flex justify-content-between align-items-center mb-3">
       <span>Your Cart</span>
-      <span class="badge badge-secondary badge-pill">3</span>
+      <% let totalQuantity = null; %>
+      <% cart.forEach( item => { %>
+      <% totalQuantity += item.quantity; %>
+      <% }) %>
+      <span class="badge badge-secondary badge-pill"><%=totalQuantity%></span>
     </h1>
     <ul class="list-group mb-3">
-        <%cart.forEach( item => {%>
+        <% cart.forEach( item => { %>
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
                 <h6 class="my-0"><%=item.name%></h6>
               </div>
               <div>
-              <h6 class="my-0">Qty :<%=item.quantity%></h6>
+              <h6 class="my-0">Qty: <%=item.quantity%></h6>
               </div>
-              <span class="text-muted">$<%=item.price%></span>
+              <span class="text-muted">$<%=(item.price * item.quantity).toFixed(2);%></span>
             </li>
         <%})%>
 
             <li class="list-group-item d-flex justify-content-between">
             <span>Taxes (CAD)</span>
-            <span class="text-muted">$X.XX</span>
+            <% let taxes = null; %>
+            <% cart.forEach( item => { %>
+            <% taxes += +((item.price * item.quantity * 0.15).toFixed(2)) %>
+            <% }) %>
+            <span class="text-muted">$<%=taxes%></span>
           </li>
             <li class="list-group-item d-flex justify-content-between">
               <span><strong>Total (CAD)</strong></span>
-              <strong>$20.00</strong>
+              <% let total = null; %>
+              <% cart.forEach( item => { %>
+              <% total += +(((item.price * item.quantity) + taxes).toFixed(2)); %>
+              <% }) %>
+              <strong>$<%=total%></strong>
             </li>
           </ul>
 </div>
