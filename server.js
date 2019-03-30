@@ -95,16 +95,12 @@ app.post("/cart", (req, res) => {
   });
 
 });
-//put values in 93-95 then go into psql and see if they are loading in the cart table!
-
 
 //login
 app.get("/login/:id", (req,res) => {
 req.session.user_id = req.params.id;
-//install cookies sessions
   res.redirect("/")
 });
-
 
 // View contents of user's cart.
 app.get("/cart", (req, res) => {
@@ -112,7 +108,7 @@ app.get("/cart", (req, res) => {
   knex("dishes")
     .join("cart", "dishes.id", "=", "cart.dish_id")
     .select("*")
-    .where("user_id", 3)
+    .where("user_id", userId)
     .asCallback((err, result) => {
       let templateVars = { cart: result };
       console.log(templateVars);
@@ -121,7 +117,7 @@ app.get("/cart", (req, res) => {
 });
 
 // Handle request to submit order and send SMS confirmation.
-app.post("/orders/:userId", (req, res) => {
+app.post("/orders", (req, res) => {
   const userId = req.session.user_id;
   const {
     firstName,
@@ -141,7 +137,7 @@ app.post("/orders/:userId", (req, res) => {
       to: "+15149289639"
     }),
     knex("cart")
-      .where("user_id", 1)
+      .where("user_id", userId)
       .del()
   ]).then(() => {
     res.send(firstName);
