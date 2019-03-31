@@ -55,6 +55,8 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
+// Function used to
+
 // Home page:
 app.get("/", (req, res) => {
   const userId = req.session.user_id;
@@ -85,14 +87,31 @@ app.get("/orders", (req, res) => {
 app.post("/cart", (req, res) => {
   const userId = req.session.user_id;
   const { dishId, qty } = req.body;
+
   knex("cart")
-    .insert({
-      user_id: userId,
-      dish_id: dishId,
-      quantity: qty
+    .select("*")
+    .where("dish_id", dishId)
+    .andWhere('user_id', userId)
+    .then(rows => {
+      // To check if dish is already in a user's cart.
+      if (rows.length === 0) {
+        knex("cart").insert({
+          user_id: userId,
+          dish_id: dishId,
+          quantity: qty
+        });
+      } else {
+        let newQty = rows[0].quantity + parseInt(qty);
+        console.log(newQty);
+        knex("cart")
+          .where('dish_id', dishId)
+          .andWhere('user_id', userId)
+          .update({quantity: newQty})
+      }
     })
-    .then(result => {
-      res.sendStatus(200); //advising us that that status is good and prevent it from hanging ("refresh")
+    .then(() => {
+      // Prevents hanging refresh.
+      res.sendStatus(200);
     });
 });
 
@@ -117,7 +136,6 @@ app.get("/cart", (req, res) => {
     .where("user_id", userId)
     .asCallback((err, result) => {
       let templateVars = { cart: result };
-      console.log(templateVars);
       res.render("orders", templateVars);
     });
 });
@@ -137,17 +155,38 @@ app.post("/orders", (req, res) => {
   } = req.body;
 
   return Promise.all([
+    // Send an SMS to the client about their order.
     twilio.messages.create({
       body: `Thank you, ${firstName}! Your order is being processed and your delivery will be completed shortly.`,
       from: "+14388060140",
       to: "+15149289639"
     }),
+    // Empty the user's cart.
     knex("cart")
       .where("user_id", userId)
       .del()
   ]).then(() => {
     res.send(firstName);
   });
+});
+
+// Delete an item from a user's cart.
+app.post("/cart/:id/delete", (req, res) => {
+  const userId = req.session.user_id;
+  const cartId = parseInt(req.body.cartId);
+  knex("cart")
+    .where("id", cartId)
+    .del()
+    .then(result => {
+      knex("dishes")
+        .join("cart", "dishes.id", "=", "cart.dish_id")
+        .select("*")
+        .where("user_id", userId)
+        .asCallback((err, result) => {
+          let templateVars = { cart: result };
+          res.render("orders", templateVars);
+        });
+    });
 });
 
 app.listen(PORT, () => {
