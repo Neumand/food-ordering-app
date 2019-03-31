@@ -288,6 +288,7 @@ input { /* 1 */
 button,
 select { /* 1 */
   text-transform: none;
+  color: white;
 }
 
 /**
