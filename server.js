@@ -81,25 +81,31 @@ app.get("/orders", (req, res) => {
   });
 });
 
-
 // Handle request to add dish to the user's cart.
 app.post("/cart", (req, res) => {
   const userId = req.session.user_id;
   const { dishId, qty } = req.body;
-  knex("cart").insert({
-    user_id: userId,
-    dish_id: dishId,
-    quantity: qty
-  }).then(result => {
-    res.sendStatus(200)  //advising us that that status is good and prevent it from hanging ("refresh")
-  });
-
+  knex("cart")
+    .insert({
+      user_id: userId,
+      dish_id: dishId,
+      quantity: qty
+    })
+    .then(result => {
+      res.sendStatus(200); //advising us that that status is good and prevent it from hanging ("refresh")
+    });
 });
 
-//login
-app.get("/login/:id", (req,res) => {
-req.session.user_id = req.params.id;
-  res.redirect("/")
+// Login route.
+app.get("/login/:id", (req, res) => {
+  req.session.user_id = req.params.id;
+  res.redirect("/");
+});
+
+// Logout route.
+app.get("/logout/:id", (req, res) => {
+  req.session = null;
+  res.redirect("/");
 });
 
 // View contents of user's cart.
