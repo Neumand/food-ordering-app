@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 8080;
 const ENV = process.env.ENV || "development";
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieSession = require("cookie-session");
 const sass = require("node-sass-middleware");
 const app = express();
 
@@ -42,17 +43,12 @@ app.use(
   })
 );
 
-// In-memory DB for the available dishes.
-
-const dishesDb = [
-  { id: 1, name: "Chop House Burger", price: 6.5, quantity: 0 },
-  { id: 2, name: "Wine Country Burger", price: 8.25, quantity: 0 },
-  { id: 3, name: "Chicken Fried Chicken Burger", price: 7.25, quantity: 0 },
-  { id: 4, name: "Buffalo Burger", price: 7.25, quantity: 0 },
-  { id: 5, name: "Ahi Tuna Burger", price: 9.25, quantity: 0 },
-  { id: 6, name: "The Green Burger", price: 7.25, quantity: 0 },
-  { id: 7, name: "El Luchador Burger", price: 8.25, quantity: 0 }
-];
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["key1", "key2"]
+  })
+);
 
 app.use(express.static("public"));
 
@@ -61,33 +57,34 @@ app.use("/api/users", usersRoutes(knex));
 
 // Home page:
 app.get("/", (req, res) => {
+  const userId = req.session.user_id;
   res.render("index");
 });
+
 // Menu Page:
 app.get("/dishes", (req, res) => {
-  knex('dishes').asCallback((err, rows) => {
-    if (err) console.error(err)
+  const userId = req.session.user_id;
+  knex("dishes").asCallback((err, rows) => {
+    if (err) console.error(err);
 
-    res.render('menu', { dishes: rows })
-  })
+    res.render("menu", { dishes: rows });
+  });
 });
-
-
 
 // Orders Page:
 app.get("/orders", (req, res) => {
-  knex('orders').asCallback((err, rows) => {
-    if (err) console.error(err)
+  const userId = req.session.user_id;
+  knex("orders").asCallback((err, rows) => {
+    if (err) console.error(err);
 
-    res.render('menu', { orders: rows })
-  })
+    res.render("menu", { orders: rows });
+  });
 });
 
 
 // Handle request to add dish to the user's cart.
 app.post("/cart", (req, res) => {
-  // console.log('hello')
-  const userId = req.params.userId;
+  const userId = req.session.user_id;
   const { dishId, qty } = req.body;
   knex("cart").insert({
     user_id: userId,
@@ -98,35 +95,30 @@ app.post("/cart", (req, res) => {
   });
 
 });
-//put values in 93-95 then go into psql and see if they are loading in the cart table!
-
 
 //login
 app.get("/login/:id", (req,res) => {
 req.session.user_id = req.params.id;
-//install cookies sessions
   res.redirect("/")
 });
 
-
 // View contents of user's cart.
 app.get("/cart", (req, res) => {
-  // Replace with cookie-session ID
-  const userId = req.params.userId;
+  const userId = req.session.user_id;
   knex("dishes")
     .join("cart", "dishes.id", "=", "cart.dish_id")
     .select("*")
-    .where("user_id", 2)
+    .where("user_id", userId)
     .asCallback((err, result) => {
-      let templateVars = result;
+      let templateVars = { cart: result };
       console.log(templateVars);
       res.render("orders", templateVars);
     });
 });
 
 // Handle request to submit order and send SMS confirmation.
-app.post("/orders/:userId", (req, res) => {
-  const userId = req.params.userId;
+app.post("/orders", (req, res) => {
+  const userId = req.session.user_id;
   const {
     firstName,
     lastName,
@@ -144,7 +136,9 @@ app.post("/orders/:userId", (req, res) => {
       from: "+14388060140",
       to: "+15149289639"
     }),
-    knex("cart").del()
+    knex("cart")
+      .where("user_id", userId)
+      .del()
   ]).then(() => {
     res.send(firstName);
   });
