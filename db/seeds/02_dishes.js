@@ -51,6 +51,20 @@ exports.seed = function (knex, Promise) {
       description: 'Pepper Jack cheese, pico de gallo, tostada, habanero mayo & guacamole.',
       price: 8.25,
       ready_time: 2
+    }),
+    knex('dishes').insert({
+      image: '/images-Mar/b8.jpg',
+      name: 'The Gobbler Burger',
+      description: 'Ground turkey, cranberry mojo, provolone cheese, shaved red onion, vine ripened tomato & arugula.',
+      price: 8.25,
+      ready_time: 2
+    }),
+    knex('dishes').insert({
+      image: '/images-Mar/b9.jpg',
+      name: 'Notorious P.I.G',
+      description: 'All natural beef on a brioche bun. Made with 100% all-natural, responsibly raised Angus beef, cooked to order & true to weight.',
+      price: 10.25,
+      ready_time: 2
     })
   ]);
 };
