@@ -1,35 +1,96 @@
 <% include partials/_header %>
 <br>
 <br>
+
+<html>
   <body>
-
-
-  <section class="home-content">
-  <div id="carouselExampleSlidesOnly" class="carousel-slide " data-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-        <img src="/images/Main-Page-Photo.jpg" class="d-block w-100" alt="friends around a table eating burgers">
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-100"  src="/images/Main-Page-Photo.jpg" alt="First slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100"  src="/images/meanbite.jpg" alt="Second slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="/images/lunchbrunch.jpg" alt="Third slide">
+      </div>
     </div>
-    <div class="carousel-item">
-      <img src="/images/lunchbrunch.jpg" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="/images/meanbite.jpg" class="d-block w-100" alt="...">
-    </div>
+    <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
   </div>
-</div>
+    <!-- Services Section On Home Page -->
+    <section>
+      <div class="container">
+        <h2 class="m-3">Services</h2>
+        <p class="text-muted mb-5">Some of the services provided.. Needs to be reWritten</p>
+        <div class="row">
+          <div class="col-sm-6 col-lg-4 mb-3">
+            <svg class="lnr text-primary services-icon">
+              <use xlink:href="#lnr-thumbs-up"></use>
+            </svg>
+            <h6>Ratings</h6>
+            <p class="text-muted">Ex cupidatat eu officia consequat incididunt labore occaecat ut veniam labore et cillum id et.</p>
+          </div>
+          <div class="col-sm-6 col-lg-4 mb-3">
+            <svg class="lnr text-primary services-icon">
+              <use xlink:href="#lnr-car"></use>
+            </svg>
+            <h6>Delivery</h6>
+            <p class="text-muted">Tempor aute occaecat pariatur esse aute amet.</p>
+          </div>
+          <div class="col-sm-6 col-lg-4 mb-3">
+            <svg class="lnr text-primary services-icon">
+              <use xlink:href="#lnr-dinner"></use>
+            </svg>
+            <h6>Ratings</h6>
+            <p class="text-muted">Voluptate ex irure ipsum ipsum ullamco ipsum reprehenderit non ut mollit commodo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ORDER NOW SECTION-->
+    <section class="container-fluid text-center py-4 mt-4" id="contact">
+      <h2 class="display-4 pb-4 my-4">Ready to place your order!</h2>
+      <p class="lead pb-3">Have a look at our................lorem......</p>
+      <a href="/dishes" class="btn btn-dark btn-lg mb-4" role="button">Order Now</a>
+    </section>
 
-<!--  <img class="home-image" src="/images/Main-Page-Photo.jpg" alt="Customers sharing burger experience."> TESTING REMOVED FIRST LOOK-->
-  <p>Bacon ipsum dolor amet prosciutto brisket ribeye drumstick landjaeger. Turkey pork chop capicola short loin. Fatback spare ribs turducken porchetta hamburger shank. Brisket tri-tip doner flank. Sausage shoulder spare ribs prosciutto, ribeye beef ribs andouille porchetta hamburger tri-tip capicola ground round boudin ham.
-  </p>
-  <p>
-  Chuck meatloaf kielbasa, corned beef turkey sausage pork belly andouille pork chop burgdoggen swine. Sausage hamburger t-bone prosciutto corned beef chicken. Turducken tenderloin shoulder doner ham hock.
-  </p>
-  </section>
-  <section class="button-prompt">
-  <form method="GET" action="/dishes">
-  <button type="submit" class="btn btn-dark btn-lg btn-block">Order Now!</button>
-  </form>
-  </section>
+    <!-- Image Showcases -->
+    <section class="showcase">
+      <div class="container-fluid p-0">
+        <div class="row no-gutters">
+
+          <div class="col-lg-6 order-lg-2 text-white showcase-img img-fluid max-width: 100%; height: auto;" style="background-image: url('/images/showcase1.jpg');"></div>
+          <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+            <h2>Fully Responsive Design</h2>
+            <p class="lead mb-0">When you use a theme created by Start Bootstrap, you know that the theme will look great on any device, whether it's a phone, tablet, or desktop the page will behave responsively!</p>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-lg-6 text-white showcase-img" style="background-image: url('/images/showcase2.jpg');"></div>
+          <div class="col-lg-6 my-auto showcase-text">
+            <h2>Updated For Bootstrap 4</h2>
+            <p class="lead mb-0">Newly improved, and full of great utility classes, Bootstrap 4 is leading the way in mobile responsive web development! All of the themes on Start Bootstrap are now using Bootstrap 4!</p>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('images/showcase3.jpg');"></div>
+          <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+            <h2>Easy to Use &amp; Customize</h2>
+            <p class="lead mb-0">Landing Page is just HTML and CSS with a splash of SCSS for users who demand some deeper customization options. Out of the box, just add your content and images, and your new landing page will be ready to go!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
   </body>
 </html>
+<%include partials/_footer%>
