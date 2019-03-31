@@ -55,7 +55,7 @@ $(() => {
 
   })
 
-  $('.carousel-slide').carousel({
+  $('#carouselExampleFade').carousel({
     interval: 5000
   })
 
