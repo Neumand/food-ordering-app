@@ -47,6 +47,14 @@
               <div>
               <h6 class="my-0">Qty: <%=item.quantity%></h6>
               </div>
+              <div>
+              <form class="delete-item" method="POST" action="/cart/<%=item.id%>/delete">
+              <button type="submit" class="btn btn-dark btn-sm">
+                <i class="material-icons">delete</i>
+                <input type="hidden" name="cartId" value="<%=item.id%>">
+              </button>
+              </form>
+              </div>
               <span class="text-muted">$<%=(item.price * item.quantity).toFixed(2);%></span>
             </li>
         <%})%>
@@ -96,7 +104,7 @@
   </div>
   <div class="form-group col-md-4">
   <label for="inputPhoneNumber">Phone Number</label>
-  <input type="text" class="form-control" id="inputPhoneNumber" name="phoneNumber" placeholder="Please enter as XXX-XXXX">
+  <input type="text" class="form-control" id="inputPhoneNumber" name="phoneNumber" placeholder="(XXX)-XXX-XXXX">
 </div>
   </div>
   <div class="form-row">
