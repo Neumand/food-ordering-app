@@ -87,33 +87,38 @@ app.get("/orders", (req, res) => {
 app.post("/cart", (req, res) => {
   const userId = req.session.user_id;
   const { dishId, qty } = req.body;
-
   knex("cart")
-    .select("*")
-    .where("dish_id", dishId)
-    .andWhere('user_id', userId)
-    .then(rows => {
-      // To check if dish is already in a user's cart.
-      if (rows.length === 0) {
-        knex("cart").insert({
-          user_id: userId,
-          dish_id: dishId,
-          quantity: qty
-        });
-      } else {
-        let newQty = rows[0].quantity + parseInt(qty);
-        console.log(newQty);
-        knex("cart")
-          .where('dish_id', dishId)
-          .andWhere('user_id', userId)
-          .update({quantity: newQty})
-      }
+    .insert({
+      user_id: userId,
+      dish_id: dishId,
+      quantity: qty
     })
     .then(() => {
       // Prevents hanging refresh.
       res.sendStatus(200);
     });
 });
+// knex("cart")
+//   .select("*")
+//   .where("dish_id", dishId)
+//   .andWhere('user_id', userId)
+//   .then(rows => {
+//     // To check if dish is already in a user's cart.
+//     if (rows.length < 1) {
+//       console.log(rows);
+//       knex("cart").insert({
+//         user_id: userId,
+//         dish_id: dishId,
+//         quantity: qty
+//       })
+//     } else {
+//       let newQty = rows[0].quantity + parseInt(qty);
+//       console.log(newQty);
+//       knex("cart")
+//         .where('dish_id', dishId)
+//         .andWhere('user_id', userId)
+//         .update({quantity: newQty})
+//     }
 
 // Login route.
 app.get("/login/:id", (req, res) => {
