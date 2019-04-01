@@ -1,72 +1,71 @@
 
 <%include partials/_header%>
 
-<body>
-  <br>
-  <br>
-
-
-
-    <!-- Burgers Layout -->
-  <section class="bg-light">
-  <div class="container">
+  <body>
     <br>
     <br>
-    <br>
-    <h2 class="m-6">Burgers</h2>
-    <p class="lead text-muted mb-5">Bacon ipsum dolor amet cupim turducken cow kielbasa capicola t-bone. Tail turducken tri-tip alcatra, drumstick strip steak cow pork loin leberkas tongue pancetta beef. Bacon pork chop tail pastrami ribeye alcatra bresaola ground round shankle venison boudin brisket picanha kevin. Short ribs picanha t-bone sirloin, pancetta biltong kielbasa brisket cow beef ribs. Ground round pancetta rump strip steak venison. Frankfurter flank beef ribs, pastrami shankle beef chicken ham hock tri-tip doner fatback turkey. Buffalo meatball ball tip tri-tip turducken short ribs beef ribs sirloin ham ground round biltong pancetta chicken bacon.</p>
-    <div class="row">
-      <%dishes.forEach(dish => {%>
-      <div class="col-md-4 mb-4">
-        <div class="card shadow border-0 h-100"><a href="#"><img src="<%=dish.image%>" alt="" class="card-img-top"></a>
-          <div class="card-body">
-              <h5><%=dish.name%></h5>
-              <p class="text-muted card-text"><%=dish.description%></p>
-                <p class="card-text">$<%=dish.price.toFixed(2)%> <button type="button" class="btn btn-dark col-xs-5" data-toggle="modal" data-target="#dish-<%=dish.id%>">Select</button> </p>
-          </div>
-        </div>
-      </div>
-      <!-- Modal -->
-      <div class="modal fade" id="dish-<%=dish.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle"><%=dish.name%></h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body"><%=dish.description%></div>
-            <div class="modal-body">$<%=dish.price.toFixed(2)%></div>
-            <div class="modal-footer">
-              <form action= "/cart" method="POST" class="add-to-cart-form">
-                <input type="number" class="quantity-button"  name="qty" min="1" max="20" value="1">
-                <input type="hidden" name="dishId" value="<%=dish.id%>">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-dark col-xs-5" data-toggle="modal" data-target="#dish-<%=dish.id%>">Add to Cart</button>
-              </form>
+
+    <!-- Grid Layout For Burgers -->
+    <!--Desc: This layout is wrapped in a loop and is 3 product wide-->
+    <section class="bg-light">
+      <div class="container">
+        <br>
+        <br>
+        <br>
+        <h2 class="m-6">Burgers</h2>
+        <p class="lead text-muted mb-5">Bacon ipsum dolor amet cupim turducken cow kielbasa capicola t-bone. Tail turducken tri-tip alcatra, drumstick strip steak cow pork loin leberkas tongue pancetta beef. Bacon pork chop tail pastrami ribeye alcatra bresaola ground round shankle venison boudin brisket picanha kevin. Short ribs picanha t-bone sirloin, pancetta biltong kielbasa brisket cow beef ribs. Ground round pancetta rump strip steak venison. Frankfurter flank beef ribs, pastrami shankle beef chicken ham hock tri-tip doner fatback turkey. Buffalo meatball ball tip tri-tip turducken short ribs beef ribs sirloin ham ground round biltong pancetta chicken bacon.</p>
+        <div class="row">
+          <%dishes.forEach(dish => {%>
+          <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 h-100"><a href="#"><img src="<%=dish.image%>" alt="" class="card-img-top"></a>
+              <div class="card-body">
+                <h5><%=dish.name%></h5>
+                <p class="text-muted card-text"><%=dish.description%></p>
+                <p class="text-center welcome-tag ">$<%=dish.price.toFixed(2)%> <button type="button" class="btn btn-dark col-xs-5" data-toggle="modal" data-target="#dish-<%=dish.id%>">Select</button> </p>
+              </div>
             </div>
           </div>
-        </div>
+
+          <!--Hidden Modal - When Users selects a meal this Modal will appear-->
+          <div class="modal fade" id="dish-<%=dish.id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle"><%=dish.name%></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+              <div class="modal-body"><%=dish.description%></div>
+              <div class="modal-body">$<%=dish.price.toFixed(2)%></div>
+                <div class="modal-footer">
+                  <form action= "/cart" method="POST" class="add-to-cart-form">
+                  <input type="number" class="quantity-button"  name="qty" min="1" max="20" value="1">
+                  <input type="hidden" name="dishId" value="<%=dish.id%>">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-dark col-xs-5" data-toggle="modal" data-target="#dish-<%=dish.id%>">Add to Cart</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        <%})%>
       </div>
-      <%})%>
-    </div>
     </section>
+    <!--END-->
 
-    <!-- Flexbox container for aligning the toasts -->
-    <div class="toast" id="submit-toast" role="alert" style="position: fixed;top: 110px;left: 100px;" aria-live="assertive" aria-atomic="true" data-delay="3000">
+
+    <!-- Toast Container -->
+    <!-- Desc: Users will be alerted each time their item is addded to cart -->
+    <div class="toast" id="submit-toast" role="alert" style="position:fixed; top:119px;left: 100px;" aria-live="assertive" aria-atomic="true" data-delay="4000">
       <div class="toast-header">
         <img src="https://findicons.com/files/icons/1964/colorcons_green/128/checkmark.png" class="rounded mr-2" alt="fast food Icon" width="30" height="30">
         <strong class="mr-auto">Confirmed!</strong>
-
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="toast-body">
-      Item has been successfully added to cart.
+        <p>Item has been successfully added to cart.</p>
       </div>
     </div>
+    <!--END-->
 
   </body>
   <%include partials/_footer%>
