@@ -1,9 +1,9 @@
 body {
   background-color: #EEE;
-  font-size: 1em;
+  font-size: 1.5em;
 
   h1 {
-    color: #244751;
+    color: #292b2c;
   }
 }
 
@@ -64,17 +64,6 @@ margin: 1px;
 display:flex;
 flex-direction:column;
 justify-content: space-between;
-}
-
-.order-form {
-  padding: 1em;
-  font-size: 0.8em;
-}
-
-.order-text {
-  padding: 1em;
-  font-size: 0.8em;
-  margin-top: 3em;
 }
 
 .burger_header {
